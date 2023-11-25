@@ -267,7 +267,6 @@ private class SQLiteEncoder: Encoder {
             case let value as any StringValue:
                 encoder.setters.append(Expression(key.stringValue) <- value.datatypeValue)
             default:
-                print("encoding \(value)")
                 let encoded = try JSONEncoder().encode(value)
                 let string = String(data: encoded, encoding: .utf8)
                 encoder.setters.append(Expression(key.stringValue) <- string)
@@ -447,7 +446,7 @@ private class SQLiteDecoder: Decoder {
         }
 
         func decode(_ type: String.Type, forKey key: Key) throws -> String {
-            try row.get(Expression(key.stringValue))
+            return try row.get(Expression(key.stringValue))
         }
 
         func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T: Swift.Decodable {
@@ -462,6 +461,10 @@ private class SQLiteDecoder: Decoder {
             case is UUID.Type:
                 let uuid = try row.get(Expression<UUID>(key.stringValue))
                 return uuid as! T
+            case is any StringValue.Type:
+                let value = try row.get(Expression<String>(key.stringValue))
+                let data = (type as! any StringValue.Type).fromDatatypeValue(value)
+                return data as! T
             default:
                 // swiftlint:enable force_cast
                 guard let JSONString = try row.get(Expression<String?>(key.stringValue)) else {

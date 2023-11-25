@@ -8,7 +8,7 @@ import CSQLite
 #else
 import SQLite3
 #endif
-@testable import SQLite
+@testable import SQLite2
 
 class FTSIntegrationTests: SQLiteTestCase {
     let email = Expression<String>("email")

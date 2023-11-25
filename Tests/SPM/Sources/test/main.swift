@@ -1,4 +1,4 @@
-import SQLite
+import SQLite2
 
 let table = Table("test")
 let name = Expression<String>("name")

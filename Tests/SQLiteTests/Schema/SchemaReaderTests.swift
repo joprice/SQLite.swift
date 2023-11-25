@@ -1,5 +1,5 @@
 import XCTest
-@testable import SQLite
+@testable import SQLite2
 
 class SchemaReaderTests: SQLiteTestCase {
     private var schemaReader: SchemaReader!
@@ -158,8 +158,8 @@ class SchemaReaderTests: SQLiteTestCase {
     func test_foreignKeys() throws {
         let linkTable = Table("test_links")
 
-        let idColumn = SQLite.Expression<Int64>("id")
-        let testIdColumn = SQLite.Expression<Int64>("test_id")
+        let idColumn = SQLite2.Expression<Int64>("id")
+        let testIdColumn = SQLite2.Expression<Int64>("test_id")
 
         try db.run(linkTable.create(block: { definition in
             definition.column(idColumn, primaryKey: .autoincrement)

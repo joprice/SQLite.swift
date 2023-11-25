@@ -24,6 +24,7 @@
 
 import Foundation
 
+
 extension QueryType {
     /// Creates an `INSERT` statement by encoding the given object
     /// This method converts any custom nested types to JSON data and does not handle any sort
@@ -254,6 +255,7 @@ private class SQLiteEncoder: Encoder {
             }
         }
 
+
         func encode<T>(_ value: T, forKey key: Key) throws where T: Swift.Encodable {
             switch value {
             case let data as Data:
@@ -262,7 +264,10 @@ private class SQLiteEncoder: Encoder {
                 encoder.setters.append(Expression(key.stringValue) <- date.datatypeValue)
             case let uuid as UUID:
                 encoder.setters.append(Expression(key.stringValue) <- uuid.datatypeValue)
+            case let value as any StringValue:
+                encoder.setters.append(Expression(key.stringValue) <- value.datatypeValue)
             default:
+                print("encoding \(value)")
                 let encoded = try JSONEncoder().encode(value)
                 let string = String(data: encoded, encoding: .utf8)
                 encoder.setters.append(Expression(key.stringValue) <- string)

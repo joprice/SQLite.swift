@@ -45,6 +45,10 @@ public protocol Value: Expressible { // extensions cannot have inheritance claus
 
 }
 
+protocol StringValue: Value where Datatype == String {
+    // associatedtype Datatype: Value
+}
+
 extension Double: Number, Value {
 
     public static let declaredDatatype = "REAL"

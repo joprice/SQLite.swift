@@ -1,5 +1,5 @@
 import XCTest
-@testable import SQLite
+@testable import SQLite2
 
 class SQLiteTestCase: XCTestCase {
     private var trace: [String: Int]!

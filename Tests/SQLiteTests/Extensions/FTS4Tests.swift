@@ -1,5 +1,5 @@
 import XCTest
-import SQLite
+import SQLite2
 
 class FTS4Tests: XCTestCase {
 

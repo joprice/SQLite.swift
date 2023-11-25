@@ -1,5 +1,5 @@
 import XCTest
-import SQLite
+import SQLite2
 
 class FTS5Tests: XCTestCase {
     var config: FTS5Config!

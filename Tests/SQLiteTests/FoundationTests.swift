@@ -1,5 +1,5 @@
 import XCTest
-import SQLite
+import SQLite2
 
 class FoundationTests: XCTestCase {
     func testDataFromBlob() {
